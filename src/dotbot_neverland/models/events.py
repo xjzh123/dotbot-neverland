@@ -6,7 +6,6 @@ from ._base import Base
 from .raw import EventRawData
 from .users import User
 
-
 __all__ = [
     "Event",
     "InfoEvent",

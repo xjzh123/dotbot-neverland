@@ -1,4 +1,5 @@
 from typing import Literal, Mapping
+
 from ..models.events import *
 
 Alias = Literal[

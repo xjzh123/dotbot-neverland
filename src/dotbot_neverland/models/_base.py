@@ -1,4 +1,5 @@
 from typing import Mapping, Self
+
 from attrs import define
 
 from ._filter_attrs import filter_attrs

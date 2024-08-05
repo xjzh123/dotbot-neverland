@@ -1,17 +1,17 @@
-from .raw import EventRawData
-from .users import User
 from .events import (
-    Event,
-    InfoEvent,
-    ChatEvent,
-    EmoteEvent,
-    WarnEvent,
     BotJoinEvent,
     CaptchaEvent,
+    ChangeNickEvent,
+    ChatEvent,
+    EmoteEvent,
+    Event,
+    InfoEvent,
+    InviteEvent,
+    UpdateUserEvent,
     UserJoinEvent,
     UserLeaveEvent,
-    UpdateUserEvent,
+    WarnEvent,
     WhisperEvent,
-    InviteEvent,
-    ChangeNickEvent,
 )
+from .raw import EventRawData
+from .users import User

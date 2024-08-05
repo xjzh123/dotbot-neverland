@@ -1,6 +1,5 @@
 from typing import Any, Mapping, TypedDict
 
-
 EventRawData = TypedDict(
     "EventRawData",
     {

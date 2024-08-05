@@ -1,5 +1,7 @@
 import asyncio
-from dotbot_neverland import Bot, Context, ChatEvent, WhisperEvent, BotJoinEvent
+import os
+
+from dotbot_neverland import Bot, BotJoinEvent, ChatEvent, Context, WhisperEvent
 
 bot = Bot()
 
@@ -15,4 +17,4 @@ async def ping(c: Context[ChatEvent | WhisperEvent]):
         await c.reply("pong!")
 
 
-asyncio.run(bot.connect("lounge", "ping", "***", bypass_dns=True))
+asyncio.run(bot.connect("lounge", "ping", os.getenv("HC_PWD"), bypass_dns=True))

@@ -1,24 +1,24 @@
 from __future__ import annotations
 
 import asyncio
-from collections import OrderedDict
 import json
 import ssl
+from collections import OrderedDict
 from typing import Any, Awaitable, Callable, Collection, Coroutine, Literal
 
-from attrs import asdict
 import websockets
 from attr import define
-
-from .models import ChatEvent, WhisperEvent
+from attrs import asdict
 
 from .models import (
+    BotJoinEvent,
+    ChatEvent,
     Event,
+    UpdateUserEvent,
     User,
     UserJoinEvent,
     UserLeaveEvent,
-    UpdateUserEvent,
-    BotJoinEvent,
+    WhisperEvent,
 )
 from .parsing import parse
 from .utils.aliases import Alias, aliases
@@ -58,16 +58,17 @@ class Bot:
         else:
             self.ws = await websockets.connect(ws_url, **ws_opts)
 
-    async def _join(self, channel: str, nick: str, password: str):
-        await self.send_json(
-            {"cmd": "join", "channel": channel, "nick": nick, "password": password}
-        )
+    async def _join(self, channel: str, nick: str, password: str | None = None):
+        payload: dict = {"cmd": "join", "channel": channel, "nick": nick}
+        if password:
+            payload["password"] = password
+        await self.send_json(payload)
 
     async def connect(
         self,
         channel: str,
         nick: str,
-        password: str,
+        password: str | None = None,
         ws_url: str = HC_WS_URL,
         ws_opts={},
         bypass_dns=False,

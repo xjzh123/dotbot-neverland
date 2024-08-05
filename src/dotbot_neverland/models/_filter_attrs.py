@@ -1,6 +1,6 @@
 from typing import Any, Collection, Mapping, cast
 
-from attrs import AttrsInstance, Attribute, fields
+from attrs import Attribute, AttrsInstance, fields
 
 
 def filter_attrs(
