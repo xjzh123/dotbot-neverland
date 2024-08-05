@@ -1,7 +1,6 @@
-from .bot import Bot, Context, Listener
-from .models import (
-    EventRawData,
-    User,
+from .raw import EventRawData
+from .users import User
+from .events import (
     Event,
     InfoEvent,
     ChatEvent,

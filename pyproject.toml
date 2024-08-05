@@ -5,7 +5,10 @@ description = "Add your description here"
 authors = [
     { name = "xjzh123", email = "37945610+xjzh123@users.noreply.github.com" }
 ]
-dependencies = []
+dependencies = [
+    "websockets>=12.0",
+    "attrs>=23.2.0",
+]
 readme = "README.md"
 requires-python = ">= 3.8"
 
