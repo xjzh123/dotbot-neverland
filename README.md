@@ -10,7 +10,8 @@ WIP
 
 - [x] Graceful ignore self
 - [ ] Informative error message
-  - [x] Error during parcing 
+  - [x] Error during parcing
+- [ ] Update-able chat message
 - [ ] Graceful shutdown
 - [ ] Command-like system
 - [ ] Reusable collection of listeners
