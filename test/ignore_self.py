@@ -1,7 +1,7 @@
 import asyncio
 import os
 
-from dotbot_neverland import Bot, ChatEvent, Context, SelfJoinEvent, WhisperEvent
+from dotbot_neverland import Bot, ChatEvent, Context, SelfJoinEvent
 
 bot = Bot()
 

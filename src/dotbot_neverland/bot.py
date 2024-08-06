@@ -22,6 +22,7 @@ from .models import (
 )
 from .parsing import parse
 from .utils.aliases import Alias, aliases
+from .utils.custom_id import generate_customid
 
 type Listener[T: Event] = Callable[[Context[T]], None | Awaitable[None]]
 type ListenerKey = type[Event] | Literal["*"]
@@ -130,6 +131,11 @@ class Bot:
 
     async def send(self, text: str):  # the same as `chat`
         await self.send_json({"cmd": "chat", "text": text})
+
+    async def chat_updatable(self, text: str):
+        customId = generate_customid()
+        await self.send_json({"cmd": "chat", "text": text, "customId": customId})
+        return UpdatableMessage(text, customId, self)
 
     async def whisper(self, nick: str, text: str):
         await self.send_json({"cmd": "whisper", "nick": nick, "text": text})
@@ -244,3 +250,53 @@ class Context[T: Event]:
             raise ValueError(
                 f"Context[{type(self.event).__name__}] doesn't support reply"
             )
+
+
+type UpdateMessageMode = Literal["overwrite", "prepend", "append"]
+
+
+@define
+class UpdatableMessage:
+    text: str
+    customId: str
+
+    bot: Bot
+
+    def _update(self, mode: UpdateMessageMode, text: str):
+        return {
+            "cmd": "updateMessage",
+            "mode": mode,
+            "text": text,
+            "customId": self.customId,
+        }
+
+    def _overwrite(self, text: str):
+        return self._update("overwrite", text)
+
+    def _prepend(self, text: str):
+        return self._update("prepend", text)
+
+    def _append(self, text: str):
+        return self._update("append", text)
+
+    def _complete(self):
+        return {
+            "cmd": "updateMessage",
+            "mode": "complete",
+            "customId": self.customId,
+        }
+
+    async def update(self, mode: UpdateMessageMode, text: str):
+        await self.bot.send_json(self._update(mode, text))
+
+    async def overwrite(self, text: str):
+        await self.bot.send_json(self._overwrite(text))
+
+    async def prepend(self, text: str):
+        await self.bot.send_json(self._prepend(text))
+
+    async def append(self, text: str):
+        await self.bot.send_json(self._append(text))
+
+    async def complete(self):
+        await self.bot.send_json(self._complete())

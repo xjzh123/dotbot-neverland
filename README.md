@@ -11,7 +11,7 @@ WIP
 - [x] Graceful ignore self
 - [ ] Informative error message
   - [x] Error during parcing
-- [ ] Update-able chat message
+- [x] Update-able chat message
 - [ ] Graceful shutdown
 - [ ] Command-like system
 - [ ] Reusable collection of listeners
@@ -25,4 +25,4 @@ WIP
 
 - [hvicorn](https://github.com/Hiyoteam/hvicorn) by [0x24a](https://github.com/0x24a)
 
-  This bot framework realized my dream of a "well typed" bot framework. It is very creative compared to previous bot frameworks, and dotbot-neverland references it heavily.
+  This bot framework realized my dream of a "well typed" bot framework. It is very creative compared to previous bot frameworks, and dotbot-neverland references it heavily. Actually, the whole design of dotbot-neverland is inspired by hvicorn.
