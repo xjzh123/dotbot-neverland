@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import json
 import ssl
+import warnings
 from collections import OrderedDict
 from typing import Any, Awaitable, Callable, Collection, Coroutine, Literal
 
@@ -18,6 +19,7 @@ from .models import (
     User,
     UserJoinEvent,
     UserLeaveEvent,
+    WarnEvent,
     WhisperEvent,
 )
 from .parsing import parse
@@ -211,6 +213,13 @@ class Bot:
             case ChangeNickEvent():
                 if e.old_nick == self.nick:
                     self.nick = e.new_nick
+            case WarnEvent():
+                warnings.warn(f"Warning from server: {e.text}")
+        if "channel" in e.raw:
+            if (channel := e.raw["channel"]) != self.channel:
+                warnings.warn(
+                    f"Unexpected channel: {channel} (expecting {self.channel})"
+                )
 
     @property
     def nicks(self):

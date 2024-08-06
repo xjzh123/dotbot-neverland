@@ -76,6 +76,7 @@ asyncio.run(bot.connect("lounge", "ping", os.getenv("HC_PWD")))
 - [ ] Hook system and logging
 - [ ] anti rate-limit and warnings
   - [ ] modelling of common warnings
+  - [ ] built-in auto reconnecting
   - [ ] ability to know whether a message is accepted by HC (difficult)
   - [ ] optional auto-retry mechanism
 - [ ] Documentation
