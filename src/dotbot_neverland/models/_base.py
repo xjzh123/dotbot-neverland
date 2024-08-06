@@ -13,5 +13,5 @@ class Base[T: Mapping]:
             return cls(**filter_attrs(cls, _data), **extra_kwds)
         except Exception as e:
             raise ValueError(
-                f"Error during parsing\n{_data=}, {filter_attrs(cls, _data)=}, {extra_kwds=}\nException info: {e}"
-            )
+                f"Error during parsing\n{_data=}\n{filter_attrs(cls, _data)=}\n{extra_kwds=}"
+            ) from e
