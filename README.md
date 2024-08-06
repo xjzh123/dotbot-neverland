@@ -8,7 +8,7 @@ WIP
 
 ## TODO
 
-- [ ] Graceful ignore self
+- [x] Graceful ignore self
 - [ ] Informative error message
   - [x] Error during parcing 
 - [ ] Graceful shutdown

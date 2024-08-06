@@ -7,7 +7,7 @@ from collections import OrderedDict
 from typing import Any, Awaitable, Callable, Collection, Coroutine, Literal
 
 import websockets
-from attrs import define, asdict
+from attrs import asdict, define
 
 from .models import (
     ChangeNickEvent,
@@ -143,18 +143,39 @@ class Bot:
 
         self.listeners[event_type].append(listener)
 
-    def add_listener(self, matcher: ListenerKey | Alias, listener: Listener):
+    def add_listener(
+        self,
+        matcher: ListenerKey | Alias,
+        listener: Listener,
+        *,
+        ignore_self: bool = True,
+    ):
         if isinstance(matcher, str) and matcher != "*":
             matcher = aliases[matcher]
-        self._add_listener(matcher, listener)
+        if ignore_self:
 
-    def listen(self, matchers: Collection[ListenerKey | Alias], listener: Listener):
+            def _listener(c: Context, /):
+                if hasattr(c.event, "nick"):
+                    if c.event.nick == self.nick:  # type: ignore
+                        return
+                return listener(c)
+        else:
+            _listener = listener
+        self._add_listener(matcher, _listener)
+
+    def listen(
+        self,
+        matchers: Collection[ListenerKey | Alias],
+        listener: Listener,
+        *,
+        ignore_self: bool = True,
+    ):
         for matcher in matchers:
-            self.add_listener(matcher, listener)
+            self.add_listener(matcher, listener, ignore_self=ignore_self)
 
-    def on(self, *matchers: ListenerKey | Alias):
+    def on(self, *matchers: ListenerKey | Alias, ignore_self: bool = True):
         def deco(listener: Listener):
-            self.listen(matchers, listener)
+            self.listen(matchers, listener, ignore_self=ignore_self)
             return listener
 
         return deco
