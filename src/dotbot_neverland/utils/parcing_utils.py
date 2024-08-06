@@ -1,12 +1,5 @@
 import re
 
-validate_nick_regex = re.compile(r"^[a-zA-Z0-9_]{1,24}$")
-
-
-def validate_nick(nick: str):
-    return bool(validate_nick_regex.fullmatch(nick))
-
-
 parse_whisper_regex = re.compile(r"(?:You whispered to @.*?: |(.*?) whispered: )(.*)")
 
 

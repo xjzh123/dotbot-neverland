@@ -6,5 +6,7 @@ from attrs import Attribute, AttrsInstance, fields
 def filter_attrs(
     cls: type[AttrsInstance], data: Mapping[str, Any]
 ) -> Mapping[str, Any]:
-    field_names = [field.name for field in cast(Collection[Attribute], fields(cls))]
+    field_names = [
+        field.name for field in cast(Collection[Attribute], fields(cls))
+    ]  # TODO: cache optimization
     return {k: v for k, v in data.items() if (k in field_names)}

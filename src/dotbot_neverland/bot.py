@@ -12,6 +12,7 @@ from attrs import asdict
 
 from .models import (
     BotJoinEvent,
+    ChangeNickEvent,
     ChatEvent,
     Event,
     UpdateUserEvent,
@@ -90,11 +91,15 @@ class Bot:
 
                 ctx = Context(self, event)
 
+                await self.dispatch("*", ctx)
+
                 await self.dispatch(type(event), ctx)
         finally:
             await self.close()
 
-    async def dispatch[T: Event](self, event_type: type[T], ctx: Context[T]):
+    async def dispatch[T: Event](
+        self, event_type: type[T] | Literal["*"], ctx: Context[T]
+    ):
         listeners = self.listeners.get(event_type, [])
 
         coros: list[Coroutine] = []
@@ -188,6 +193,12 @@ class Context[T: Event]:
         return (self.bot, self.event)
 
     def get_user(self):
+        if isinstance(self.event, UserJoinEvent):
+            return self.event.user
+
+        elif isinstance(self.event, ChangeNickEvent):
+            return self.bot.users_dict[self.event.old_nick]
+
         return self.bot.users_dict[self.event.nick]  # type: ignore
 
     def get_channel(self):

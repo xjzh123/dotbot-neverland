@@ -6,6 +6,13 @@ A hack.chat bot framework which is simple, powerful, robust.
 
 WIP
 
+## TODO
+
+- [ ] Graceful ignore self
+- [ ] Command-like system
+- [ ] Reusable collection of listeners
+- [ ] Profiling and optimization
+
 ## Credits
 
 - foolishbird by light/await

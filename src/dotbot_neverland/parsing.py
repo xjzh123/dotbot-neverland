@@ -4,6 +4,7 @@ from typing import Union
 
 from .models import *
 from .utils.parcing_utils import parse_changenick, parse_emote, parse_whisper
+from .utils.validators import validate_trip
 
 
 def parse(
@@ -31,6 +32,7 @@ def parse(
 
     match data["cmd"]:
         case "chat":
+            data["trip"] = validate_trip(data["trip"])  # type: ignore
             return ChatEvent.parse(data)
 
         case "warn":
@@ -47,8 +49,8 @@ def parse(
 
         case "onlineSet":
             users = [User.parse(user) for user in data["users"]]
-            data.pop("users")
-            return BotJoinEvent.parse(data, users=users)
+            data["users"] = users  # type: ignore
+            return BotJoinEvent.parse(data)
 
         case "captcha":
             return CaptchaEvent.parse(data)
@@ -68,6 +70,7 @@ def parse(
                     if groups:
                         data["nick"] = data["from"]
                         data["text"] = groups[1]
+                        data["trip"] = validate_trip(data["trip"])  # type: ignore
                         return WhisperEvent.parse(data, text_raw=text_raw)
                     else:
                         raise ValueError(
@@ -80,6 +83,7 @@ def parse(
                         (nick, text) = groups
                         data["nick"] = nick
                         data["text"] = text
+                        data["trip"] = validate_trip(data["trip"])  # type: ignore
                         return EmoteEvent.parse(data, text_raw=text_raw)
                     else:
                         raise ValueError(f"Failed to parse emote message: {text_raw!r}")

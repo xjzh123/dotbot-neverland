@@ -2,6 +2,7 @@ from typing import Any, Literal, Mapping, Optional, Self
 
 from attrs import define
 
+from ..utils.validators import validate_trip
 from ._base import Base
 
 
@@ -20,5 +21,7 @@ class User(Base):
     raw: Mapping[str, Any]
 
     @classmethod
-    def parse(cls, data: Mapping[str, Any], **extra_kwds) -> Self:
+    def parse(cls, _data: Mapping[str, Any], **extra_kwds) -> Self:
+        data: dict = _data.copy()  # type: ignore
+        data["trip"] = validate_trip(data["trip"])
         return super().parse(data, raw=data, **extra_kwds)
