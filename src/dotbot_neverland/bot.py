@@ -146,6 +146,9 @@ class Bot:
     async def change_nick(self, nick: str):
         await self.send_json({"cmd": "changenick", "nick": nick})
 
+    async def change_color(self, color: str | None):
+        await self.send_json({"cmd": "changecolor", "color": color or "reset"})
+
     def _add_listener(self, event_type: ListenerKey, listener: Listener):
         if event_type not in self.listeners.keys():
             self.listeners[event_type] = []
