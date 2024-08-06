@@ -128,6 +128,9 @@ class Bot:
     async def chat(self, text: str):
         await self.send_json({"cmd": "chat", "text": text})
 
+    async def send(self, text: str):  # the same as `chat`
+        await self.send_json({"cmd": "chat", "text": text})
+
     async def whisper(self, nick: str, text: str):
         await self.send_json({"cmd": "whisper", "nick": nick, "text": text})
 
