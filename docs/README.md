@@ -2,6 +2,10 @@
 
 ## Quickstart
 
+```shell
+pip install dotbot-neverland
+```
+
 ```py
 import asyncio
 import os
@@ -31,7 +35,7 @@ You can listen to a certain type of event:
 
 ```py
 @bot.on(ChatEvent)
-def on_chat(c: Context[ChatEvent]):
+async def on_chat(c: Context[ChatEvent]):
    ...
 ```
 
@@ -39,7 +43,7 @@ Using a string alias is also OK:
 
 ```py
 @bot.on("chat")
-def on_chat(c: Context[ChatEvent]):
+async def on_chat(c: Context[ChatEvent]):
    ...
 ```
 
@@ -47,7 +51,7 @@ You can listen to multiple types of event:
 
 ```py
 @bot.on("chat", "whisper")
-def on_msg(c: Context[ChatEvent | WhisperEvent]):
+async def on_msg(c: Context[ChatEvent | WhisperEvent]):
    ...
 ```
 
@@ -57,17 +61,17 @@ def on_msg(c: Context[ChatEvent | WhisperEvent]):
 >
 > ```py
 > @bot.on(InfoEvent)
-> def on_info(c: Context[InfoEvent]):
+> async def on_info(c: Context[InfoEvent]):
 >    ...
 > ```
 >
-> Only info messages that are not identified to be any smaller supported types (whispers, emotes and invites) will come to this listener.
+> Only info messages that are not identified to be any smaller supported types (whispers, emotes and invites) will go to this listener.
 
 You can register listeners that listen to ALL messages with `*`:
 
 ```py
 @bot.on("*")
-def on_msg(c: Context[Event]):
+async def on_msg(c: Context[Event]):
    ...
 ```
 
@@ -110,6 +114,16 @@ bot.users
 bot.nicks
 bot.users_dict[nick]
 ```
+
+## Handling Events
+
+Different events have different attributes.
+
+`event.text` is the text content of the message. For `WhisperEvent` and `EmoteEvent`, dotbot-neverland extracts the original text for you. For these events, raw text is accessible with `event.text_raw`.
+
+`event.nick` is the nickname of the sender of the message. In some messages, it is in `data["from"]`, but dotbot-neverland handles that for you.
+
+For full list of events and attributes, check out the [source code](/src/dotbot_neverland/models/events.py).
 
 ## Using contexts
 

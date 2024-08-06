@@ -16,6 +16,7 @@ Installation with pip: `pip install dotbot-neverland`
 
   You only need to deal with bot logic, with these things available for free:
 
+  - Parse whisper and emote message from server message like `XXX whispered: ...`
   - List of online users
   - Current nickname of your bot
   - Query full user info with nickname
