@@ -11,10 +11,10 @@ from attr import define
 from attrs import asdict
 
 from .models import (
-    BotJoinEvent,
     ChangeNickEvent,
     ChatEvent,
     Event,
+    SelfJoinEvent,
     UpdateUserEvent,
     User,
     UserJoinEvent,
@@ -136,7 +136,6 @@ class Bot:
         await self.send_json({"cmd": "emote", "text": text})
 
     async def change_nick(self, nick: str):
-        self.nick = nick
         await self.send_json({"cmd": "changenick", "nick": nick})
 
     def _add_listener(self, event_type: ListenerKey, listener: Listener):
@@ -168,13 +167,16 @@ class Bot:
                 self.users_dict[e.user.nick] = e.user
             case UserLeaveEvent():
                 self.users_dict.pop(e.nick)
-            case BotJoinEvent():
+            case SelfJoinEvent():
                 self.users_dict = OrderedDict([(user.nick, user) for user in e.users])
             case UpdateUserEvent():
                 user = self.users_dict[e.nick]
                 # `User.parse` automatically adds `raw` attribute, and `asdict(user)` also provides a `raw`
                 # So the previous `raw` must be discarded
                 self.users_dict[e.nick] = User.parse({**asdict(user), **e.raw})
+            case ChangeNickEvent():
+                if e.old_nick == self.nick:
+                    self.nick = e.new_nick
 
     @property
     def nicks(self):

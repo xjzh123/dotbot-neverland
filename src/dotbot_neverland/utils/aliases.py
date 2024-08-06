@@ -22,7 +22,7 @@ aliases: Mapping[Alias, type[Event]] = {
     "chat": ChatEvent,
     "emote": EmoteEvent,
     "warn": WarnEvent,
-    "onlineSet": BotJoinEvent,
+    "onlineSet": SelfJoinEvent,
     "captcha": CaptchaEvent,
     "onlineAdd": UserJoinEvent,
     "onlineRemove": UserLeaveEvent,

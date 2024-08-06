@@ -1,5 +1,4 @@
 from .events import (
-    BotJoinEvent,
     CaptchaEvent,
     ChangeNickEvent,
     ChatEvent,
@@ -7,6 +6,7 @@ from .events import (
     Event,
     InfoEvent,
     InviteEvent,
+    SelfJoinEvent,
     UpdateUserEvent,
     UserJoinEvent,
     UserLeaveEvent,

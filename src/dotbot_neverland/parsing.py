@@ -16,7 +16,7 @@ def parse(
     ChatEvent,
     EmoteEvent,
     WarnEvent,
-    BotJoinEvent,
+    SelfJoinEvent,
     CaptchaEvent,
     UserJoinEvent,
     UserLeaveEvent,
@@ -50,7 +50,7 @@ def parse(
         case "onlineSet":
             users = [User.parse(user) for user in data["users"]]
             data["users"] = users  # type: ignore
-            return BotJoinEvent.parse(data)
+            return SelfJoinEvent.parse(data)
 
         case "captcha":
             return CaptchaEvent.parse(data)

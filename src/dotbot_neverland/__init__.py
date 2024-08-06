@@ -1,6 +1,5 @@
 from .bot import Bot, Context, Listener
 from .models import (
-    BotJoinEvent,
     CaptchaEvent,
     ChangeNickEvent,
     ChatEvent,
@@ -9,6 +8,7 @@ from .models import (
     EventRawData,
     InfoEvent,
     InviteEvent,
+    SelfJoinEvent,
     UpdateUserEvent,
     User,
     UserJoinEvent,

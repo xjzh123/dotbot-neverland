@@ -1,13 +1,13 @@
 import asyncio
 import os
 
-from dotbot_neverland import Bot, BotJoinEvent, ChatEvent, Context, WhisperEvent
+from dotbot_neverland import Bot, ChatEvent, Context, SelfJoinEvent, WhisperEvent
 
 bot = Bot()
 
 
 @bot.on("onlineSet")
-async def hello(c: Context[BotJoinEvent]):
+async def hello(c: Context[SelfJoinEvent]):
     await c.bot.chat("Hello from dotbot-neverland!")
 
 

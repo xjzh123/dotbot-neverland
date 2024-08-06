@@ -12,7 +12,7 @@ __all__ = [
     "ChatEvent",
     "EmoteEvent",
     "WarnEvent",
-    "BotJoinEvent",
+    "SelfJoinEvent",
     "CaptchaEvent",
     "UserJoinEvent",
     "UserLeaveEvent",
@@ -59,7 +59,7 @@ class WarnEvent(Event):
 
 
 @define
-class BotJoinEvent(Event):
+class SelfJoinEvent(Event):
     users: list[User]
 
 
