@@ -1,4 +1,4 @@
-# dotbot-neverland
+# [dotbot-neverland](https://github.com/xjzh123/dotbot-neverland)
 
 A hack.chat bot framework which is simple, powerful, robust.
 
@@ -55,7 +55,7 @@ asyncio.run(bot.connect("lounge", "ping", os.getenv("HC_PWD")))
 
 ## Documentations
 
-[/docs](/docs)
+[/docs](https://github.com/xjzh123/dotbot-neverland/tree/master/docs)
 
 ## TODO
 
