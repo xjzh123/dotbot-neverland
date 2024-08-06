@@ -7,8 +7,7 @@ from collections import OrderedDict
 from typing import Any, Awaitable, Callable, Collection, Coroutine, Literal
 
 import websockets
-from attr import define
-from attrs import asdict
+from attrs import define, asdict
 
 from .models import (
     ChangeNickEvent,
