@@ -2,6 +2,10 @@
 
 A hack.chat bot framework which is simple, powerful, robust.
 
+PyPI: [dotbot-neverland](https://pypi.org/project/dotbot-neverland/)
+
+Installation with pip: `pip install dotbot-neverland`
+
 ## Why?
 
 - Well typed
@@ -53,7 +57,7 @@ async def ping(c: Context[ChatEvent | WhisperEvent]):
 asyncio.run(bot.connect("lounge", "ping", os.getenv("HC_PWD")))
 ```
 
-## Documentations
+## Documentation
 
 [/docs](https://github.com/xjzh123/dotbot-neverland/tree/master/docs)
 
