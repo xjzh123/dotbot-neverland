@@ -59,6 +59,7 @@ def parse(
             text_raw = data["text"]
 
             if "type" not in data:
+                data["type"] = None  # type: ignore
                 return InfoEvent.parse(data, text_raw=text_raw)
 
             match data["type"]:

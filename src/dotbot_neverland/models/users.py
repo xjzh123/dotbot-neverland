@@ -24,4 +24,6 @@ class User(Base):
     def parse(cls, _data: Mapping[str, Any], **extra_kwds) -> Self:
         data: dict = _data.copy()  # type: ignore
         data["trip"] = validate_trip(data["trip"])
+        if "raw" in data:
+            data.pop("raw")
         return super().parse(data, raw=data, **extra_kwds)

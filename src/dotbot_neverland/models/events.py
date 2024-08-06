@@ -35,7 +35,7 @@ class Event(Base):
 
 @define
 class InfoEvent(Event):
-    type: str
+    type: str | None
     text_raw: str
 
 
@@ -54,7 +54,7 @@ class EmoteEvent(InfoEvent):
 
 
 @define
-class WarnEvent(InfoEvent):
+class WarnEvent(Event):
     text: str
 
 

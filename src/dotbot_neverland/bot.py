@@ -172,6 +172,8 @@ class Bot:
                 self.users_dict = OrderedDict([(user.nick, user) for user in e.users])
             case UpdateUserEvent():
                 user = self.users_dict[e.nick]
+                # `User.parse` automatically adds `raw` attribute, and `asdict(user)` also provides a `raw`
+                # So the previous `raw` must be discarded
                 self.users_dict[e.nick] = User.parse({**asdict(user), **e.raw})
 
     @property
@@ -204,10 +206,14 @@ class Context[T: Event]:
     def get_channel(self):
         return self.event.raw.get("channel")
 
-    async def reply(self, text: str):
+    async def reply(self, text: str, whisper_newline: str | bool = False):
         if isinstance(self.event, ChatEvent):
             await self.bot.chat(text)
         elif isinstance(self.event, WhisperEvent):
+            if whisper_newline:
+                if isinstance(whisper_newline, bool):
+                    whisper_newline = ">"
+                text = f"{whisper_newline}\n{text}"
             await self.bot.whisper(self.event.nick, text)
         else:
             raise ValueError(

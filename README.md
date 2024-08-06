@@ -9,6 +9,8 @@ WIP
 ## TODO
 
 - [ ] Graceful ignore self
+- [ ] Informative error message
+- [ ] Graceful shutdown
 - [ ] Command-like system
 - [ ] Reusable collection of listeners
 - [ ] Profiling and optimization
