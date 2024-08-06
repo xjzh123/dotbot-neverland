@@ -16,6 +16,11 @@ WIP
 - [ ] Command-like system
 - [ ] Reusable collection of listeners
 - [ ] Profiling and optimization
+- [ ] Hook system and logging
+- [ ] anti rate-limit and warnings
+  - [ ] modelling of common warnings
+  - [ ] ability to know whether a message is accepted by HC (difficult)
+  - [ ] optional auto-retry mechanism
 
 ## Credits
 
