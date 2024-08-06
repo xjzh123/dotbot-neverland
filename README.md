@@ -12,7 +12,7 @@ WIP
 - [ ] Informative error message
   - [x] Error during parcing
 - [x] Update-able chat message
-- [ ] Graceful shutdown
+- [x] Graceful shutdown
 - [ ] Command-like system
 - [ ] Reusable collection of listeners
 - [ ] Profiling and optimization

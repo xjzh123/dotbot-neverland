@@ -94,6 +94,8 @@ class Bot:
                 await self.dispatch("*", ctx)
 
                 await self.dispatch(type(event), ctx)
+        except asyncio.exceptions.CancelledError:
+            pass
         finally:
             await self.close()
 
