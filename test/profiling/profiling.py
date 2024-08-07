@@ -1,7 +1,7 @@
 import cProfile
 import os
 
-import winloop
+import asyncio
 from dotbot_neverland import Bot, ChatEvent, Context, SelfJoinEvent, WhisperEvent
 
 bot = Bot()
@@ -21,7 +21,7 @@ async def ping(c: Context[ChatEvent | WhisperEvent]):
 
 
 def main():
-    winloop.run(bot.connect("lounge", "ping", os.getenv("HC_PWD"), bypass_dns=True))
+    asyncio.run(bot.connect("lounge", "ping", os.getenv("HC_PWD"), bypass_dns=True))
 
 
 cProfile.run("main()")
