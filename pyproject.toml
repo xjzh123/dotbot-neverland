@@ -1,6 +1,6 @@
 [project]
 name = "dotbot-neverland"
-version = "0.1.2"
+version = "0.1.3"
 description = "Add your description here"
 authors = [
     { name = "xjzh123", email = "37945610+xjzh123@users.noreply.github.com" }
