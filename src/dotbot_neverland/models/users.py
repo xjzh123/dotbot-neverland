@@ -23,7 +23,7 @@ class User(Base):
     @classmethod
     def parse(cls, _data: Mapping[str, Any], **extra_kwds) -> Self:
         data: dict = _data.copy()  # type: ignore
-        data["trip"] = validate_trip(data["trip"])
+        data["trip"] = validate_trip(data.get("trip"))
         if "raw" in data:
             data.pop("raw")
         return super().parse(data, raw=data, **extra_kwds)

@@ -36,7 +36,7 @@ You can listen to a certain type of event:
 ```py
 @bot.on(ChatEvent)
 async def on_chat(c: Context[ChatEvent]):
-   ...
+    ...
 ```
 
 Using a string alias is also OK:
@@ -44,7 +44,7 @@ Using a string alias is also OK:
 ```py
 @bot.on("chat")
 async def on_chat(c: Context[ChatEvent]):
-   ...
+    ...
 ```
 
 You can listen to multiple types of event:
@@ -52,7 +52,7 @@ You can listen to multiple types of event:
 ```py
 @bot.on("chat", "whisper")
 async def on_msg(c: Context[ChatEvent | WhisperEvent]):
-   ...
+    ...
 ```
 
 > **NOTE:** Although technically there are some "is-a" relationships between the event types (e.g. whisper messages are like `{"cmd": "info", "type": "whisper"}`, so they are also info messages), and in dotbot-neverland, we also use inheritance and subclasses to represent such a relationship, when you listen to event types, only the smallest type will be matched.
@@ -62,7 +62,7 @@ async def on_msg(c: Context[ChatEvent | WhisperEvent]):
 > ```py
 > @bot.on(InfoEvent)
 > async def on_info(c: Context[InfoEvent]):
->    ...
+>     ...
 > ```
 >
 > Only info messages that are not identified to be any smaller supported types (whispers, emotes and invites) will go to this listener.
@@ -72,7 +72,7 @@ You can register listeners that listen to ALL messages with `*`:
 ```py
 @bot.on("*")
 async def on_msg(c: Context[Event]):
-   ...
+    ...
 ```
 
 By default, a bot only respond to other users' messages, but not to those of itself.

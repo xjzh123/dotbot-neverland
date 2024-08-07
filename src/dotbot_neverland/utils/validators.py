@@ -11,7 +11,7 @@ def strip_nick(nick: str) -> str:
     return nick.strip().removeprefix("@")
 
 
-def validate_trip(trip: str) -> str | None:
+def validate_trip(trip: str | None) -> str | None:
     if trip == "" or trip == "null":
         return None
     return trip

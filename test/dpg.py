@@ -18,7 +18,7 @@ say_regex = re.compile(r"说([一-龟]+)")
 
 @bot.on("chat")
 async def dpg(c: Context[ChatEvent]):
-    if f"@{c.bot.nick}" in c.event.text:
+    if f"@{c.bot.nick} " in c.event.text:
         if match := say_regex.search(c.event.text):
             await c.bot.chat(match.group(1))
         else:

@@ -14,7 +14,6 @@ async def hello(c: Context[SelfJoinEvent]):
 @bot.on("chat", "whisper")
 async def ping(c: Context[ChatEvent | WhisperEvent]):
     if c.event.text == ":ping":
-        await asyncio.sleep(1)
         await c.reply("1")
         await asyncio.sleep(2)
         await c.reply("3")
@@ -23,7 +22,7 @@ async def ping(c: Context[ChatEvent | WhisperEvent]):
 @bot.on("chat", "whisper")
 async def ping2(c: Context[ChatEvent | WhisperEvent]):
     if c.event.text == ":ping":
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         await c.reply("2")
         await asyncio.sleep(2)
         await c.reply("4")

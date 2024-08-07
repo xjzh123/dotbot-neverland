@@ -5,7 +5,7 @@ import json
 import ssl
 import warnings
 from collections import OrderedDict
-from typing import Any, Awaitable, Callable, Collection, Coroutine, Literal
+from typing import Any, Awaitable, Callable, Collection, Literal
 
 import websockets
 from attrs import asdict, define
@@ -83,38 +83,35 @@ class Bot:
         self.is_connected = True
         await self._join(channel, nick, password)
         try:
-            while self.ws and self.ws.open:
-                message = await self.ws.recv()
-                obj = json.loads(message)
-                event = parse(obj)
+            async with asyncio.TaskGroup() as tg:
+                while self.ws and self.ws.open:
+                    message = await self.ws.recv()
+                    obj = json.loads(message)
+                    event = parse(obj)
 
-                if event is None:
-                    continue
+                    if event is None:
+                        continue
 
-                ctx = Context(self, event)
+                    ctx = Context(self, event)
 
-                await self.dispatch("*", ctx)
+                    self.dispatch(tg, "*", ctx)
 
-                await self.dispatch(type(event), ctx)
+                    self.dispatch(tg, type(event), ctx)
         except asyncio.exceptions.CancelledError:
             pass
         finally:
             await self.close()
 
-    async def dispatch[T: Event](
-        self, event_type: type[T] | Literal["*"], ctx: Context[T]
+    def dispatch[T: Event](
+        self, tg: asyncio.TaskGroup, event_type: type[T] | Literal["*"], ctx: Context[T]
     ):
         listeners = self.listeners.get(event_type, [])
-
-        coros: list[Coroutine] = []
 
         for listener in listeners:
             result = listener(ctx)
 
             if asyncio.iscoroutine(result):
-                coros.append(result)
-
-        await asyncio.gather(*coros)
+                tg.create_task(result)
 
     async def close(self):
         if self.ws:

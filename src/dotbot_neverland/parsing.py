@@ -32,7 +32,7 @@ def parse(
 
     match data["cmd"]:
         case "chat":
-            data["trip"] = validate_trip(data["trip"])  # type: ignore
+            data["trip"] = validate_trip(data.get("trip"))  # type: ignore
             return ChatEvent.parse(data)
 
         case "warn":
@@ -71,7 +71,7 @@ def parse(
                     if groups:
                         data["nick"] = data["from"]
                         data["text"] = groups[1]
-                        data["trip"] = validate_trip(data["trip"])  # type: ignore
+                        data["trip"] = validate_trip(data.get("trip"))  # type: ignore
                         return WhisperEvent.parse(data, text_raw=text_raw)
                     else:
                         raise ValueError(
@@ -84,7 +84,7 @@ def parse(
                         (nick, text) = groups
                         data["nick"] = nick
                         data["text"] = text
-                        data["trip"] = validate_trip(data["trip"])  # type: ignore
+                        data["trip"] = validate_trip(data.get("trip"))  # type: ignore
                         return EmoteEvent.parse(data, text_raw=text_raw)
                     else:
                         raise ValueError(f"Failed to parse emote message: {text_raw!r}")
